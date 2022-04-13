@@ -4,10 +4,11 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
-	"github.com/mumoshu/terraform-provider-eksctl/pkg/sdk"
 	"log"
 	"strconv"
+
+	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
+	"github.com/mumoshu/terraform-provider-eksctl/pkg/sdk"
 )
 
 type LiveClusterInfo struct {
@@ -34,7 +35,7 @@ func getLiveClusterInfo(ctx *sdk.Context, d *schema.ResourceData) (*LiveClusterI
 		"cluster",
 		"--name", clusterName,
 		"--region", cluster.Region,
-		"-o", "json",
+		"-o", "json", "-v", "0",
 	}
 
 	cmd, err := newEksctlCommandWithAWSProfile(cluster, args...)

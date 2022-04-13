@@ -234,6 +234,8 @@ func runGetCluster(d api.Getter, cluster *Cluster) (*ClusterState, error) {
 		cluster.Name,
 		"-o",
 		"json",
+		"-v",
+		"0",
 	}
 	cmd, err := newEksctlCommandFromResourceWithRegionAndProfile(d, args...)
 

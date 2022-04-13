@@ -3,8 +3,9 @@ package cluster
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
 	"strings"
+
+	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
 )
 
 func (m *Manager) importCluster(d *schema.ResourceData) (*schema.ResourceData, error) {
@@ -15,7 +16,8 @@ func (m *Manager) importCluster(d *schema.ResourceData) (*schema.ResourceData, e
 
 	d.SetId(newClusterID())
 
-	getCluster, err := newEksctlCommandFromResourceWithRegionAndProfile(d, "get", "cluster", "-o", "json", "--name", clusterName)
+	getCluster, err := newEksctlCommandFromResourceWithRegionAndProfile(d, "get", "cluster", "-o", "json", "--name", clusterName, "-v",
+		"0")
 	if err != nil {
 		return nil, fmt.Errorf("getting cluster %s:: %w", clusterName, err)
 	}
