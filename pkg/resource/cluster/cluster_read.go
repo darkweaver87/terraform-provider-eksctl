@@ -134,6 +134,8 @@ func runGetIAMIdentityMapping(ctx *sdk.Context, d api.Getter, cluster *Cluster) 
 		cluster.Name,
 		"-o",
 		"json",
+		"-v",
+		"0",
 	}
 	cmd, err := newEksctlCommandFromResourceWithRegionAndProfile(d, args...)
 

@@ -3,13 +3,14 @@ package sdk
 import (
 	"bufio"
 	"fmt"
-	"github.com/mumoshu/shoal"
-	"golang.org/x/sync/errgroup"
-	"golang.org/x/xerrors"
 	"io"
 	"log"
 	"path/filepath"
 	"sync"
+
+	"github.com/mumoshu/shoal"
+	"golang.org/x/sync/errgroup"
+	"golang.org/x/xerrors"
 )
 
 var prepareExecMu sync.Mutex
@@ -23,20 +24,30 @@ func PrepareExecutable(defaultPath, pkgAndCmdName, pkgVersion string) (*string, 
 		},
 	}
 
-	rig := "https://github.com/fishworks/fish-food"
+	rig := "https://github.com/darkweaver87/fish-food"
 
 	doInstall := pkgVersion != ""
 
 	if doInstall {
 		log.Printf("Installing %s %s", pkgAndCmdName, pkgVersion)
 
-		conf.Dependencies = append(conf.Dependencies,
-			shoal.Dependency{
-				Rig:     rig,
-				Food:    pkgAndCmdName,
-				Version: pkgVersion,
-			},
-		)
+		if pkgAndCmdName == "eksctl" {
+			conf.Dependencies = append(conf.Dependencies,
+				shoal.Dependency{
+					Rig:     rig,
+					Food:    pkgAndCmdName,
+					Version: "0.92.0",
+				},
+			)
+		} else {
+			conf.Dependencies = append(conf.Dependencies,
+				shoal.Dependency{
+					Rig:     rig,
+					Food:    pkgAndCmdName,
+					Version: pkgVersion,
+				},
+			)
+		}
 	}
 
 	log.Print("Started taking exclusive lock on shoal")
