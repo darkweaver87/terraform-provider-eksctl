@@ -36,7 +36,7 @@ func PrepareExecutable(defaultPath, pkgAndCmdName, pkgVersion string) (*string, 
 				shoal.Dependency{
 					Rig:     rig,
 					Food:    pkgAndCmdName,
-					Version: "0.92.0",
+					Version: "0.109.0",
 				},
 			)
 		} else {
