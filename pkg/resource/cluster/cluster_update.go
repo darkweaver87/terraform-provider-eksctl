@@ -265,10 +265,12 @@ func (m *Manager) updateCluster(d *schema.ResourceData) (*ClusterSet, error) {
 
 	tasks := []func() error{
 		// See https://eksctl.io/usage/cluster-upgrade/ for the cluster upgrade process
-		updateBy([]string{"upgrade", "cluster","--approve"}, nil),
-		updateBy([]string{"utils", "update-kube-proxy","--approve"}, nil),
-		updateBy([]string{"utils", "update-aws-node","--approve"}, nil),
-		updateBy([]string{"utils", "update-coredns","--approve"}, nil),
+		updateBy([]string{"upgrade", "cluster", "--approve"}, nil),
+		updateBy([]string{"update", "addon"}, nil),
+
+		// updateBy([]string{"utils", "update-kube-proxy","--approve"}, nil),
+		// updateBy([]string{"utils", "update-aws-node","--approve"}, nil),
+		// updateBy([]string{"utils", "update-coredns","--approve"}, nil),
 		createNew("nodegroup", nil, nil),
 		whenIAMWithOIDCEnabled(associateIAMOIDCProvider()),
 		whenIAMWithOIDCEnabled(createNew("iamserviceaccount", []string{"--approve"}, nil)),
