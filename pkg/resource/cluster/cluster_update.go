@@ -271,7 +271,7 @@ func (m *Manager) updateCluster(d *schema.ResourceData) (*ClusterSet, error) {
 		// updateBy([]string{"utils", "update-kube-proxy","--approve"}, nil),
 		// updateBy([]string{"utils", "update-aws-node","--approve"}, nil),
 		// updateBy([]string{"utils", "update-coredns","--approve"}, nil),
-		createNew("nodegroup", nil, nil),
+		createNew("nodegroup", []string{"--skip-outdated-addons-check=true"}, nil),
 		whenIAMWithOIDCEnabled(associateIAMOIDCProvider()),
 		whenIAMWithOIDCEnabled(createNew("iamserviceaccount", []string{"--approve"}, nil)),
 		createNew("fargateprofile", nil, harmlessFargateProfileCreationErrors),
